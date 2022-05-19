@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()])
 pipeline {
     agent any
     parameters {
-        string(name: "BRANCH", defaultValue: "staging", trim: true, description: "Git branch to build")
+        string(name: "BRANCH", defaultValue: "main", trim: true, description: "Git branch to build")
         }
     triggers { pollSCM('* * * * *') }
     options {
