@@ -17,7 +17,7 @@ pipeline {
                 echo " ============== startuem =================="
                 dir ('.') {
                 	sh 'docker build -t test .'
-                    sh 'docker run -d -p 1234:80 test'
+                    sh 'docker run -d -p 1233:80 test'
                 }
             }
         }
