@@ -2,10 +2,8 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent any
-    parameters {
-        string(name: "BRANCH", defaultValue: "main", trim: true, description: "Git branch to build")
-        }
+    agent { 
+                }
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
