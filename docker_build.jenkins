@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()])
 pipeline {
     agent any
     parameters {
-        string(name: "Branch_name", defaultValue: "staging", trim: true, description: "Git branch")
+        string(name: "Branch_name", defaultValue: "staging")
     }    
     triggers { pollSCM('* * * * *') }
     options {
@@ -17,7 +17,7 @@ pipeline {
                 echo " ============== startuem =================="
                 dir ('.') {
                 	sh 'docker build -t test .'
-                    sh 'ls -l'
+                    sh 'docker run -d -p 1234:80 test'
                 }
             }
         }
