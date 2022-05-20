@@ -6,18 +6,13 @@ pipeline {
     parameters {
         string(name: "Branch_name", defaultValue: "staging")
     }    
-    triggers { pollSCM('* * * * *') }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        timestamps()
-    }
+    
     stages {
         stage("create docker image") {
             steps {
                 echo " ============== startuem =================="
                 dir ('.') {
                 	sh 'docker build -t test .'
-                    sh 'docker run -d -p 1233:80 test'
                 }
             }
         }
