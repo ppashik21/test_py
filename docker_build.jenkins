@@ -8,7 +8,7 @@ pipeline {
     }    
     
     stages {
-        stage("create docker image") {
+        stage("Build") {
             steps {
                 echo " ============== startuem =================="
                 dir ('.') {
