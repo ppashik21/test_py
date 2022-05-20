@@ -5,6 +5,7 @@ pipeline {
     environment {
         BRANCH_NAME = "staging"
         DOCKER_IMAGE = "test"
+        dockerhub = credentials('dockerhub')
     }
     
     options { 
@@ -32,12 +33,9 @@ pipeline {
         
         stage("Backup") {
             steps {
-                script {
-                    echo "Backup stage"
-                    docker.withRegistry( "", "dockerhub" ) {
-                    app.push("$BUILD_NUMBER-$BRANCH_NAME")
-          }
-        }
+                sh 'docker tag test pashik/test2'
+                sh 'echo $docker_PSW | docker login -u $docker_USR --password-stdin'
+                sh 'docker push pashik/test2'
       }
     }
     
