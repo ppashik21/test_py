@@ -6,8 +6,8 @@ pipeline {
         BRANCH_NAME = "staging"
         DOCKER_IMAGE = "test"
         dockerhub = credentials('dockerhub')
-        DOCKERHUB_CREDENTIALS_PSW = TimeGroup13
-        DOCKERHUB_CREDENTIALS_USR = pashik
+        DOCKERHUB_CREDENTIALS_PSW = 'TimeGroup13'
+        DOCKERHUB_CREDENTIALS_USR = 'pashik'
     }
     
     options { 
