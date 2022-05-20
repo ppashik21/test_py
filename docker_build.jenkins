@@ -5,9 +5,7 @@ pipeline {
     environment {
         BRANCH_NAME = "staging"
         DOCKER_IMAGE = "test"
-        dockerhub = credentials('dockerhub')
-        DOCKERHUB_CREDENTIALS_PSW = 'TimeGroup13'
-        DOCKERHUB_CREDENTIALS_USR = 'pashik'
+        dockerhub =credentials('dockerhub')
     }
     
     options { 
@@ -36,7 +34,7 @@ pipeline {
         stage("Backup") {
             steps {
                 sh 'docker tag test pashik/test2'
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
                 sh 'docker push pashik/test2'
       }
     }
