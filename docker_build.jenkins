@@ -43,14 +43,9 @@ pipeline {
     
         stage ("Deploy") {
             steps {
-                echo "Deploy stage"
-                sshagent(credentials : ["keypair-ec2"]) {
-                    sh '''
-                        [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                        ssh-keyscan -t rsa,dsa ${DEPLOY_HOST} >> ~/.ssh/known_hosts
-                        scp deploy.sh ${DEPLOY_USER}@${DEPLOY_HOST}:~/
-                        ssh ${DEPLOY_USER}@${DEPLOY_HOST} ./deploy.sh $BUILD_NUMBER
-                    '''
+                echo " ============== startuem =================="
+                dir ('.') {
+                	sh 'docker run -d -p 1233:80 test'
                 }
         }
     }
