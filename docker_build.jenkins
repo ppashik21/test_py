@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     echo "Backup stage"
-                    docker.withRegistry( "", "docker-hub" ) {
+                    docker.withRegistry( "", "dockerhub" ) {
                     app.push("$BUILD_NUMBER-$BRANCH_NAME")
           }
         }
