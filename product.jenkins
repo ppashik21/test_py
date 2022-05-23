@@ -1,0 +1,58 @@
+properties([pipelineTriggers([githubPush()])])
+
+pipeline {
+    agent any
+    environment {
+        BRANCH_NAME = "main"
+        DOCKER_IMAGE = "test"
+        dockerhub =credentials('dockerhub')
+    }
+    triggers { pollSCM('* * * * *') }
+    options { 
+        buildDiscarder(logRotator(numToKeepStr: '5')) 
+    }
+
+   
+    stages {
+        stage("Cloning Git") {
+            steps {
+                echo "Checkout to ${BRANCH_NAME}"
+                git([url: "https://github.com/ppashik21/test_py.git", branch: env.BRANCH_NAME, credentialsId: "ppashik21"])
+ 
+            }
+        }
+        
+        stage("Build") {
+            steps {
+                script {
+                    echo "Build stage"
+                    app = docker.build(env.DOCKER_IMAGE)
+                }
+            }
+        }
+        
+        stage("Backup") {
+            steps {
+                sh 'docker tag test pashik/test2'
+                sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
+                sh 'docker push pashik/test2'
+      }
+    }
+    
+        stage ("Deploy") {
+            steps {
+                echo " ============== startuem =================="
+                dir ('.') {
+                	sh 'docker run -d -p 1234:80 test'
+                }
+        }
+    }
+    }
+    
+    post {
+        success {
+            echo "Remove unused local Docker image"
+            sh "docker rmi $DOCKER_IMAGE:$BUILD_NUMBER-$BRANCH_NAME"
+        }
+    }
+} 
