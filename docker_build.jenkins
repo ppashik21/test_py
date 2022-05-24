@@ -49,10 +49,5 @@ pipeline {
     }
     }
     
-    post {
-        success {
-            echo "Remove unused local Docker image"
-            sh "docker rmi $DOCKER_IMAGE:$BUILD_NUMBER-$BRANCH_NAME"
-        }
-    }
+    
 } 
