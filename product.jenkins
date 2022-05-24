@@ -33,7 +33,7 @@ pipeline {
         
         stage("Backup") {
             steps {
-                sh 'docker tag test pashik/test2'
+                sh 'docker tag test pashik/test'
                 sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
                 sh 'docker push pashik/test2'
       }
