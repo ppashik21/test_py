@@ -14,7 +14,7 @@ pipeline {
 
    
     stages {
-        stage("Cloning Git") {
+        stage("Git") {
             steps {
                 echo "Checkout to ${BRANCH_NAME}"
                 git([url: "https://github.com/ppashik21/test_py.git", branch: env.BRANCH_NAME, credentialsId: "ppashik21"])
